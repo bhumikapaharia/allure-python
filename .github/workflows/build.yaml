@@ -16,9 +16,9 @@ jobs:
           allure-pytest-bdd,
           allure-robotframework
         ]
-        python-version: [3.8]
+        python-version: [3.7]
         include:
-          - python-version: 3.8
+          - python-version: 3.7
             static-check: yes
 
     steps:
@@ -57,9 +57,9 @@ jobs:
           run: |
             docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
               arm64v8/ubuntu:20.04 \
-              bash -exc 'apt-get update && apt-get -y install python3 python3-pip python3-venv curl git && \
-              python3 -m pip install virtualenv && python3 -m venv py38-venv && \
-              source py38-venv/bin/activate && \
+              bash -exc 'apt-get update && apt-get -y install python3.7 python3-pip python3-venv curl git && \
+              python3 -m pip install virtualenv && python3 -m venv py37-venv && \
+              source py37-venv/bin/activate && \
               python3 --version && \
               pip install tox && \
               tox -e static-check -c allure-python-commons-test/tox.ini && \
@@ -70,11 +70,11 @@ jobs:
               tox -e static-check -c allure-pytest-bdd/tox.ini && \
               tox -e static-check -c allure-robotframework/tox.ini && \
               tox --sdistonly -c ./allure-python-commons && tox --sdistonly -c ./allure-python-commons-test && \
-              tox -e py`echo 3.8 | sed 's/\.//g'` -c allure-python-commons-test/tox.ini && \
-              tox -e py`echo 3.8 | sed 's/\.//g'` -c allure-python-commons/tox.ini && \
-              tox -e py`echo 3.8 | sed 's/\.//g'` -c allure-nose2/tox.ini && \
-              tox -e py`echo 3.8 | sed 's/\.//g'` -c allure-behave/tox.ini && \
-              tox -e py`echo 3.8 | sed 's/\.//g'` -c allure-pytest/tox.ini && \
-              tox -e py`echo 3.8 | sed 's/\.//g'` -c allure-pytest-bdd/tox.ini && \
-              tox -e py`echo 3.8 | sed 's/\.//g'` -c allure-robotframework/tox.ini && \
+              tox -e py`echo 3.7 | sed 's/\.//g'` -c allure-python-commons-test/tox.ini && \
+              tox -e py`echo 3.7 | sed 's/\.//g'` -c allure-python-commons/tox.ini && \
+              tox -e py`echo 3.7 | sed 's/\.//g'` -c allure-nose2/tox.ini && \
+              tox -e py`echo 3.7 | sed 's/\.//g'` -c allure-behave/tox.ini && \
+              tox -e py`echo 3.7 | sed 's/\.//g'` -c allure-pytest/tox.ini && \
+              tox -e py`echo 3.7 | sed 's/\.//g'` -c allure-pytest-bdd/tox.ini && \
+              tox -e py`echo 3.7 | sed 's/\.//g'` -c allure-robotframework/tox.ini && \
               deactivate'
